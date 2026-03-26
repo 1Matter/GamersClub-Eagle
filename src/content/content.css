@@ -1,0 +1,244 @@
+/* GamersClub Eagle - Content Styles */
+
+/* ── KDR Badges ── */
+.gce-badge {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: -6px;
+  margin-bottom: 6px;
+  z-index: 10;
+  min-width: 36px;
+  padding: 1px 5px;
+  font-size: 9px;
+  font-weight: 700;
+  text-align: center;
+  pointer-events: none;
+  white-space: nowrap;
+  border-radius: 4px;
+  font-family: inherit;
+  line-height: normal;
+}
+.gce-badge.gce-bad  { background: #52525b; border: 1px solid #71717a; color: #fff; } /* Gray */
+.gce-badge.gce-ok   { background: #0284c7; border: 1px solid #0369a1; color: #fff; } /* Blue */
+.gce-badge.gce-good { background: #dc2626; border: 1px solid #b91c1c; color: #fff; } /* Red */
+
+
+
+/* ── Team Average KDR ── */
+.gce-team-avg {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 11px;
+  font-weight: 700;
+  font-family: inherit;
+  padding: 3px 8px;
+  border-radius: 4px;
+  margin: 14px 0 6px;
+}
+.gce-team-avg--bad  { background: #52525b; border: 1px solid #71717a; color: #fff; }
+.gce-team-avg--ok   { background: #0284c7; border: 1px solid #0369a1; color: #fff; }
+.gce-team-avg--good { background: #dc2626; border: 1px solid #b91c1c; color: #fff; }
+
+/* ── Progress Bar ── */
+#gce-progress-bar {
+  position: fixed;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 999999;
+  background: #111116;
+  border: 1px solid #1f1f27;
+  border-bottom: none;
+  padding: 10px 16px;
+  box-shadow: 0 -5px 25px rgba(0,0,0,0.5);
+  border-radius: 8px 8px 0 0;
+  font-family: inherit;
+  user-select: none;
+}
+.gce-pb-wrap {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  min-width: 520px;
+}
+
+.gce-pb-lvl-badge {
+  position: relative;
+  width: 38px; height: 38px;
+  border-radius: 50%;
+  border: 1px solid #1f1f27;
+  display: flex; align-items: center; justify-content: center;
+  flex-shrink: 0;
+  background: #000;
+}
+.gce-pb-lvl-badge--current { overflow: hidden; border-color: #f59e0b; }
+.gce-pb-avatar {
+  position: absolute; inset: 0;
+  width: 100%; height: 100%;
+  object-fit: cover; opacity: 0.4;
+}
+.gce-pb-lvl-num {
+  position: relative; z-index: 1;
+  font-size: 16px; font-weight: 700; color: #fff;
+}
+
+.gce-pb-center {
+  flex: 1; display: flex; flex-direction: column; gap: 4px; min-width: 0;
+}
+
+.gce-pb-above-row {
+  display: flex; align-items: center; justify-content: space-between; min-height: 22px;
+}
+
+.gce-pb-pts-current {
+  font-size: 11px; font-weight: 700; color: #fff; text-transform: uppercase;
+}
+
+.gce-pb-track {
+  width: 100%; height: 6px;
+  background: #1f1f27;
+  position: relative; border-radius: 4px; overflow: hidden;
+}
+.gce-pb-fill {
+  height: 100%;
+  background: linear-gradient(90deg, #f59e0b, #ea580c);
+  transition: width 0.8s cubic-bezier(.2,0,0,1);
+}
+.gce-pb-thumb {
+  position: absolute; top: 50%; transform: translate(-50%, -50%);
+  width: 12px; height: 12px; border-radius: 50%;
+  background: #fff; border: 2px solid #ea580c;
+}
+.gce-pb-floor-mark {
+  position: absolute; top: -4px; transform: translateX(-50%);
+  width: 2px; height: 14px;
+  background: #fff; opacity: 0.8;
+}
+
+.gce-pb-below-row {
+  display: flex; align-items: center; justify-content: space-between; margin-top: 2px;
+}
+.gce-pb-pts-floor, .gce-pb-pts-next {
+  font-size: 10px; font-weight: 600; color: #888; font-family: inherit;
+}
+.gce-pb-mid { display: flex; gap: 4px; align-items: center; }
+.gce-pb-bd-down { font-size: 10px; font-weight: 700; color: #ee0000; }
+.gce-pb-bd-up { font-size: 10px; font-weight: 700; color: #4ade80; }
+
+.gce-pb-day-wrap {
+  display: flex; flex-direction: column; align-items: center;
+  gap: 3px; flex-shrink: 0; min-width: 52px;
+}
+.gce-pb-time {
+  font-size: 9px; font-weight: 700;
+  text-transform: uppercase; letter-spacing: 0.08em;
+  color: #555970; white-space: nowrap;
+}
+.gce-pb-bd-wrap {
+  display: flex; align-items: center; justify-content: center;
+  padding: 4px 10px; border-radius: 4px;
+  border: 1px solid rgba(255,255,255,0.1);
+  background: #1d1e28;
+}
+.gce-pb-bd-wrap--pos { background: rgba(34,197,94,0.05); border-color: rgba(34,197,94,0.3); }
+.gce-pb-bd-wrap--neg { background: rgba(238,0,0,0.08); border-color: rgba(238,0,0,0.5); }
+.gce-pb-bd-wrap--pos .gce-pb-bd-val { color: #4ade80; }
+.gce-pb-bd-wrap--neg .gce-pb-bd-val { color: #ee0000; }
+.gce-pb-bd-val { font-size: 11px; font-weight: 800; }
+
+/* ── Tag System ── */
+.gce-tag-wrap {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 20;
+  width: max-content;
+  pointer-events: auto;
+  align-self: center;
+  margin-top: 6px;
+  margin-bottom: -6px;
+}
+.gce-tag-badge {
+  font-size: 14px;
+  font-weight: 700;
+  font-family: inherit;
+  color: #fff;
+  padding: 2px 6px;
+  border: 1px solid rgba(255,255,255,0.2);
+  border-radius: 4px;
+  white-space: nowrap;
+  text-transform: uppercase;
+  cursor: pointer;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.5);
+  background: #333;
+}
+.gce-tag-btn {
+  width: 14px;
+  height: 14px;
+  background: rgba(255,255,255,0.1);
+  border: 1px solid rgba(255,255,255,0.2);
+  border-radius: 50%;
+  color: #fff;
+  font-size: 9px;
+  line-height: 1;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+}
+.gce-tag-btn:hover {
+  background: rgba(255,255,255,0.2);
+  border-color: rgba(255,255,255,0.4);
+}
+.gce-tag-overlay {
+  position: absolute;
+  z-index: 999999;
+  background: #111116;
+  border: 1px solid #1f1f27;
+  border-radius: 8px;
+  padding: 12px;
+  box-shadow: 0 5px 20px rgba(0,0,0,0.5);
+  min-width: 180px;
+}
+.gce-tag-overlay-title {
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: #999;
+  font-family: inherit;
+  margin-bottom: 10px;
+}
+.gce-tag-overlay-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 6px;
+}
+.gce-tag-opt {
+  background: #333;
+  border: 1px solid transparent;
+  color: #fff;
+  font-size: 16px;
+  font-weight: 800;
+  text-transform: uppercase;
+  padding: 6px 8px;
+  cursor: pointer;
+  text-align: center;
+  transition: all 0.2s;
+  font-family: inherit;
+  border-radius: 4px;
+}
+.gce-tag-opt:hover { filter: brightness(1.2); }
+.gce-tag-remove {
+  grid-column: 1 / -1;
+  background: transparent;
+  border: 1px dashed rgba(255,255,255,0.2);
+  color: #999;
+  margin-top: 4px;
+}
+.gce-tag-remove:hover {
+  color: #ef4444; border-color: #ef4444; background: rgba(239, 68, 68, 0.1);
+}

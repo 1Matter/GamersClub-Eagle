@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>GamersClub Eagle</title>
+  <!--
+    V-08 FIX: Google Fonts link removed entirely.
+    Font stack falls back to system-ui (Inter/Segoe UI/SF Pro on the user's OS).
+    popup.css is updated accordingly.
+    No external network request is made when opening the popup.
+  -->
+  <link rel="stylesheet" href="popup.css">
+</head>
+<body>
+  <div class="popup">
+
+    <!-- Header -->
+    <header class="popup__header">
+      <div class="popup__logo">
+        <img src="../../icons/icon48.png" alt="Eagle Logo" class="popup__logo-img">
+        <div class="popup__logo-text">
+          <span class="popup__logo-name">GamersClub Eagle</span>
+          <span class="popup__logo-sub" id="ext-version">v1.0.0</span>
+        </div>
+      </div>
+      <label class="master-toggle" title="Ativar / Desativar Extensão">
+        <input type="checkbox" id="master-enabled" checked>
+        <span class="master-toggle__track"></span>
+      </label>
+    </header>
+
+    <!-- Status Bar -->
+    <div class="status-bar" id="status-bar">
+      <div class="status-bar__dot" id="status-dot"></div>
+      <span class="status-bar__text" id="status-text">DISCONNECTED</span>
+    </div>
+
+    <!-- Tabs -->
+    <nav class="tabs">
+      <button class="tab-btn tab-btn--active" data-tab="general">Geral</button>
+      <button class="tab-btn" data-tab="discord">Discord</button>
+      <button class="tab-btn" data-tab="history">Tags</button>
+      <button class="tab-btn" data-tab="legends">Legendas</button>
+    </nav>
+
+    <!-- Tab: Geral -->
+    <div class="tab-panel tab-panel--active" id="tab-general">
+      <div class="setting-group">
+        <div class="setting-row">
+          <div class="setting-info">
+            <span class="setting-name">Auto Aceitar</span>
+            <span class="setting-desc">Aceitar partidas automaticamente</span>
+          </div>
+          <label class="toggle">
+            <input type="checkbox" id="auto-accept">
+            <span class="toggle__track"></span>
+          </label>
+        </div>
+      </div>
+
+      <div class="auto-accept-mode" id="auto-accept-mode" style="display:none">
+        <div class="mode-label">Modo de aceitação</div>
+        <div class="mode-options">
+          <label class="mode-option">
+            <input type="radio" name="accept-mode" id="accept-mode-instant" value="instant">
+            <span class="mode-option__box">
+              <span class="mode-option__name">⚡ Instantâneo</span>
+              <span class="mode-option__desc">Aceita assim que o botão aparecer</span>
+            </span>
+          </label>
+          <label class="mode-option">
+            <input type="radio" name="accept-mode" id="accept-mode-delay" value="delay">
+            <span class="mode-option__box">
+              <span class="mode-option__name">⏱ 20 Segundos</span>
+              <span class="mode-option__desc">Aguarda 20 segundos antes de aceitar</span>
+            </span>
+          </label>
+        </div>
+      </div>
+
+      <div class="setting-group">
+        <div class="setting-row">
+          <div class="setting-info">
+            <span class="setting-name">Exibir KDR</span>
+            <span class="setting-desc">Mostrar KDR individual e média da sala</span>
+          </div>
+          <label class="toggle">
+            <input type="checkbox" id="highlight-enabled" checked>
+            <span class="toggle__track"></span>
+          </label>
+        </div>
+
+        <div class="setting-row">
+          <div class="setting-info">
+            <span class="setting-name">Barra de Progresso</span>
+            <span class="setting-desc">Acompanhar evolução de pontos e níveis</span>
+          </div>
+          <label class="toggle">
+            <input type="checkbox" id="progress-tracker" checked>
+            <span class="toggle__track"></span>
+          </label>
+        </div>
+
+        <div class="setting-row">
+          <div class="setting-info">
+            <span class="setting-name">Sistema de Tags</span>
+            <span class="setting-desc">Ativar ou desativar marcação de jogadores</span>
+          </div>
+          <label class="toggle">
+            <input type="checkbox" id="tag-system" checked>
+            <span class="toggle__track"></span>
+          </label>
+        </div>
+      </div>
+
+
+    </div>
+
+    <!-- Tab: Discord -->
+    <div class="tab-panel" id="tab-discord">
+      <div class="setting-group">
+        <div class="setting-row">
+          <div class="setting-info">
+            <span class="setting-name">Integração Discord</span>
+            <span class="setting-desc">Enviar dados da lobby via webhook</span>
+          </div>
+          <label class="toggle">
+            <input type="checkbox" id="discord-enabled">
+            <span class="toggle__track"></span>
+          </label>
+        </div>
+      </div>
+
+      <div class="discord-config" id="discord-config">
+        <div class="input-group">
+          <label class="input-label">URL do Webhook</label>
+          <input type="text" id="webhook-url" class="gce-input"
+                 placeholder="https://discord.com/api/webhooks/…"
+                 spellcheck="false" autocomplete="off">
+        </div>
+
+        <div class="privacy-notice" style="margin-top:12px;font-size:10px;color:#94a3b8;background:rgba(255,255,255,0.05);padding:8px;border-radius:4px;border:1px dashed rgba(255,255,255,0.1);">
+          <strong>🔒 Aviso de Privacidade:</strong> A URL do webhook é armazenada com
+          criptografia AES-256 localmente no seu navegador. Ao ativar esta função, o
+          "Connect IP" da lobby ativa é enviado apenas para o canal Discord configurado.
+        </div>
+        <span class="input-hint">Cole a URL do webhook do seu canal no Discord</span>
+
+        <button class="btn btn--primary" id="test-webhook-btn">
+          Testar Webhook
+        </button>
+
+        <div class="webhook-guide">
+          <div class="guide-title">Como obter a URL:</div>
+          <ol class="guide-steps">
+            <li>No Discord → Configurações do Canal</li>
+            <li>Integrações → Webhooks</li>
+            <li>Criar Webhook → Copiar URL</li>
+          </ol>
+        </div>
+      </div>
+    </div>
+
+    <!-- Tab: Histórico -->
+    <div class="tab-panel" id="tab-history">
+      <div class="history-header">
+        <span class="history-title">Jogadores Marcados</span>
+        <button class="btn-ghost" id="clear-history-btn">Limpar Tudo</button>
+      </div>
+      <div class="history-list" id="history-list">
+        <div class="empty-state">
+          <span class="empty-icon">📋</span>
+          <span>Nenhum jogador marcado ainda.</span>
+          <small>Marque jogadores diretamente na lobby.</small>
+        </div>
+      </div>
+    </div>
+
+    <!-- Tab: Legendas -->
+    <div class="tab-panel" id="tab-legends">
+      <!-- KDR Legend -->
+      <div class="legend-box">
+        <div class="legend-title">Escala de Cores KDR</div>
+        <div class="legend-items">
+          <div class="legend-item">
+            <span class="legend-dot legend-dot--bad"></span>
+            <div class="legend-text">
+              <span class="legend-label">Baixo</span>
+              <span class="legend-range">KDR &lt; 1.0</span>
+            </div>
+          </div>
+          <div class="legend-item">
+            <span class="legend-dot legend-dot--ok"></span>
+            <div class="legend-text">
+              <span class="legend-label">Médio</span>
+              <span class="legend-range">1.0 ≤ KDR &lt; 1.2</span>
+            </div>
+          </div>
+          <div class="legend-item">
+            <span class="legend-dot legend-dot--good"></span>
+            <div class="legend-text">
+              <span class="legend-label">Alto</span>
+              <span class="legend-range">KDR ≥ 1.2</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Tags Legend -->
+      <div class="legend-box legend-box--tags">
+        <div class="legend-title">Marcadores (Tags)</div>
+        <div class="legend-items">
+          <div class="legend-item">
+            <span class="legend-emoji">🌟</span>
+            <div class="legend-text">
+              <span class="legend-label">Destaque</span>
+              <span class="legend-range">Joga muito / Carrega</span>
+            </div>
+          </div>
+          <div class="legend-item">
+            <span class="legend-emoji">🤬</span>
+            <div class="legend-text">
+              <span class="legend-label">Tóxico</span>
+              <span class="legend-range">Dá rage / Atrapalha</span>
+            </div>
+          </div>
+          <div class="legend-item">
+            <span class="legend-emoji">✌️</span>
+            <div class="legend-text">
+              <span class="legend-label">Amigável</span>
+              <span class="legend-range">Geralmente muito parceiro</span>
+            </div>
+          </div>
+          <div class="legend-item">
+            <span class="legend-emoji">🎭</span>
+            <div class="legend-text">
+              <span class="legend-label">Smurf</span>
+              <span class="legend-range">Nível baixo mas joga demais</span>
+            </div>
+          </div>
+          <div class="legend-item">
+            <span class="legend-emoji">🤖</span>
+            <div class="legend-text">
+              <span class="legend-label">Xitado</span>
+              <span class="legend-range">Forte desconfiança de cheat</span>
+            </div>
+          </div>
+          <div class="legend-item">
+            <span class="legend-emoji">🤡</span>
+            <div class="legend-text">
+              <span class="legend-label">Troll / Ruim</span>
+              <span class="legend-range">Afundando ativamente a partida</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <script src="../utils/security.js"></script>
+  <script src="popup.js"></script>
+</body>
+</html>

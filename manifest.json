@@ -1,0 +1,69 @@
+{
+  "manifest_version": 3,
+  "name": "GamersClub Eagle",
+  "version": "1.0.0",
+  "description": "Eleve o nível das suas partidas com recursos exclusivos para a plataforma Gamers Club.",
+  "permissions": ["storage"],
+  "host_permissions": [
+    "https://*.gamersclub.com.br/*",
+    "https://*.gamersclub.gg/*",
+    "https://discord.com/api/webhooks/*",
+    "https://discordapp.com/api/webhooks/*"
+  ],
+  "content_security_policy": {
+    "extension_pages": "script-src 'self'; object-src 'none'; style-src 'self'; font-src 'self'; img-src 'self' data:;"
+  },
+  "background": {
+    "service_worker": "src/background/background.js"
+  },
+  "content_scripts": [
+    {
+      "matches": [
+        "https://*.gamersclub.com.br/*",
+        "https://*.gamersclub.gg/*"
+      ],
+      "css": [
+        "src/content/content.css"
+      ],
+      "js": [
+        "src/utils/security.js",
+        "src/content/core.js",
+        "src/content/dom-service.js",
+        "src/content/player-service.js",
+        "src/content/progress-logic.js",
+        "src/content/matchmaking.js",
+        "src/content/match-notifier.js",
+        "src/content/progress.js",
+        "src/content/tags.js",
+        "src/content/auto-accept.js",
+        "src/content/main.js"
+      ],
+      "run_at": "document_idle"
+    }
+  ],
+  "web_accessible_resources": [
+    {
+      "resources": [
+        "src/bridge/page-bridge.js"
+      ],
+      "matches": [
+        "https://*.gamersclub.com.br/*",
+        "https://*.gamersclub.gg/*"
+      ]
+    }
+  ],
+  "action": {
+    "default_popup": "src/popup/popup.html",
+    "default_icon": {
+      "16": "icons/eagle.png",
+      "48": "icons/eagle.png",
+      "128": "icons/eagle.png"
+    },
+    "default_title": "GamersClub Eagle"
+  },
+  "icons": {
+    "16": "icons/eagle.png",
+    "48": "icons/eagle.png",
+    "128": "icons/eagle.png"
+  }
+}
